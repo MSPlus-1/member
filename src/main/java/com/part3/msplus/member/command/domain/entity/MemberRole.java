@@ -1,9 +1,6 @@
 package com.part3.msplus.member.command.domain.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 @Entity
@@ -12,8 +9,10 @@ import lombok.Getter;
 public class MemberRole {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "member_id", length = 50, nullable = false)
-    private String name;
+    @Column(name = "role", length = 50, nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
