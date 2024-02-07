@@ -27,8 +27,26 @@ public class Password {
     private String salt;
 
     private Password(String value) {
-        this.value = value;
         this.salt = this.generateSalt();
+        this.value = hashPassword(value, this.salt);
+    }
+
+    public static Password from(String value) {
+        if (value.length() < 8) {
+            throw new CustomException(Error.INVALID_PASSWORD_FORMAT);
+        }
+
+        return new Password(value);
+    }
+
+    /**
+     * validate password
+     * @param target Password entered from outside
+     */
+    public void validationMatchPassword(String target) {
+        if (!this.value.equals(hashPassword(target, this.salt))) {
+            throw new CustomException(Error.MISMATCH_PASSWORD);
+        }
     }
 
     /**
@@ -37,25 +55,15 @@ public class Password {
      * @param salt     salt that adding to original
      * @return encrypted password
      */
-    public Password hashPassword(Password original, String salt) {
-        String temp = original.value + salt;
+    private String hashPassword(String original, String salt) {
+        String temp = original + salt;
 
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(temp.getBytes(StandardCharsets.UTF_8));
-            return new Password(bytesToHex(hash));
+            return bytesToHex(hash);
         } catch (NoSuchAlgorithmException exception) {
             throw new CustomException(Error.INVALID_PASSWORD_ALGORITHM);
-        }
-    }
-
-    /**
-     * validate password
-     * @param target Password entered from outside
-     */
-    public void validationMatchPassword(Password target) {
-        if (!this.value.equals(target.value)) {
-            throw new CustomException(Error.MISMATCH_PASSWORD);
         }
     }
 
