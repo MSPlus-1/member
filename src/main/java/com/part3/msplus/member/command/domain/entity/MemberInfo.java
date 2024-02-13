@@ -16,7 +16,6 @@ public class MemberInfo {
     @Column(name = "member_id", length = 50, nullable = false)
     private String memberId;
 
-
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 

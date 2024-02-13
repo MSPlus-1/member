@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "member")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Embeddable
 @Getter
 public class Member extends BaseTimeEntity {
 
@@ -18,24 +17,13 @@ public class Member extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // pk 생성 전략 => identity
     private Long id;
 
-    @Column(name = "member_id", length = 50, nullable = false)
-    private String memberId;
-
-    @Column(name = "password", length = 100, nullable = false)
+    @Embedded
     private Password password;
 
-    @Column(name = "email", length = 100, nullable = false)
+    @Embedded
     private Email email;
 
-    @Column(name = "name", length = 50, nullable = false)
-    private String name;
-
-    @Column(name = "nickname", length = 50, nullable = false)
-    private String nickname;
-
-    @Column(name = "phone", length = 20)
-    private String phone;
-
+    @Embedded
     private MemberInfo memberInfo;
 
     /**

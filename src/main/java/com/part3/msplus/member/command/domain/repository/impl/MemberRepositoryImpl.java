@@ -1,7 +1,12 @@
 package com.part3.msplus.member.command.domain.repository.impl;
 
-import org.springframework.data.domain.Pageable;
+import com.part3.msplus.member.command.domain.repository.MemberCustomRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
-public class MemberRepositoryImpl {
+public class MemberRepositoryImpl implements MemberCustomRepository {
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
 }
