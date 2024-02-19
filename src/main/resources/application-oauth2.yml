@@ -1,0 +1,29 @@
+oauth2:
+  config:
+    kakao:
+      authorization-uri: https://kauth.kakao.com/oauth/authorize
+      access-token-uri: https://kauth.kakao.com/oauth/token
+      client-id: ${kakao-client-id}
+      secret-id: ${kakao-secret-id}
+      response-type: code
+      grant-type: authorization_code
+      redirectUri: http://localhost:${server.port}/api/v1/oauth2/callback/kakao
+      scope: openid
+    google:
+      authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+      access-token-uri: https://oauth2.googleapis.com/token
+      client-id: ${google-client-id}
+      secret-id: ${google-secret-id}
+      response-type: code
+      grant-type: authorization_code
+      redirectUri: http://localhost:${server.port}/api/v1/oauth2/callback/google
+      scope: email%20profile
+    local:
+      authorization-uri:
+      access-token-uri:
+      client-id:
+      secret-id:
+      response-type: code
+      grant-type: authorization_code
+      redirectUri:
+      scope:

@@ -24,6 +24,12 @@ spring:
     defer-datasource-initialization: true # hibernate 초기화 이후 정의한 sql 실행
     open-in-view: false # 영속성 컨텍스트 범위를 뷰까지 열지 않음
 
+  data:
+    redis:
+      port: 6379
+      host: localhost
+      password:
+
   h2:
     console:
       enabled: true

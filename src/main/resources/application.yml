@@ -1,3 +1,7 @@
 spring:
   profiles:
     default: dev
+
+  config:
+    import:
+      - classpath:application-oauth2.yml
