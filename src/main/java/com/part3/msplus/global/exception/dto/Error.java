@@ -17,6 +17,9 @@ public enum Error {
     UNAUTHORIZED(20000, "Unauthenticated Access"),
     MISMATCH_PASSWORD(20001, "Mismatch password"),
     INVALID_STATE_VALUE(20002, "Invalid state value"),
+
+    // server : 30,000
+    INTERNAL_SERVER_ERROR(30000, "Internal server error"),
     ;
 
     private final int code;
