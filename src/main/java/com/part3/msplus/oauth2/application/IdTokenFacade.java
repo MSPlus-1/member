@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -39,14 +41,13 @@ public class IdTokenFacade {
         validateEmailFromToken(email);
 
         Long memberId = memberRepository.findByEmail(Email.from(email))
-                .map(Member::getId)
                 .orElseGet(() -> createMemberService.createMember(
                         Member.builder()
                                 .email(Email.from(email))
                                 .memberRole(memberRoleRepository.findByRole(Role.ROLE_USER).orElse(MemberRole.from(Role.ROLE_GUEST)))
                                 .authProvider(authProvider)
                                 .build()
-                ).getId());
+                )).getId();
 
         return JwtUtils.createJwt(String.valueOf(memberId), email);
     }
