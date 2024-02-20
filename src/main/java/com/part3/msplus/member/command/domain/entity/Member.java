@@ -5,13 +5,19 @@ import com.part3.msplus.member.controller.dto.request.UpdateMemberDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.annotations.Where;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 @Table(name = "member")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@SQLRestriction("deleted_at IS NULL")
+@SQLDelete(sql = "UPDATE member SET deleted_at = now() WHERE id = ?")
 public class Member extends BaseTimeEntity {
 
     @Id
