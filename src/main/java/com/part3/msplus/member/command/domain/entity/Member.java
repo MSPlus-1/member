@@ -3,11 +3,10 @@ package com.part3.msplus.member.command.domain.entity;
 import com.part3.msplus.global.model.BaseTimeEntity;
 import com.part3.msplus.member.controller.dto.request.UpdateMemberDTO;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "member")
@@ -47,16 +46,6 @@ public class Member extends BaseTimeEntity {
         this.authProvider = authProvider;
     }
 
-    @Override
-    public String toString() {
-        return "Member{" +
-                "id=" + id +
-                ", email=" + email +
-                ", memberInfo=" + memberInfo +
-                ", memberRole=" + memberRole +
-                '}';
-    }
-
     public void update(UpdateMemberDTO updateMemberDTO) {
         this.email = Email.from(updateMemberDTO.email());
         this.password = Password.from(updateMemberDTO.password());
@@ -67,5 +56,26 @@ public class Member extends BaseTimeEntity {
             updateMemberDTO.nickname(),
             updateMemberDTO.phone()
         );
+    }
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", email=" + email +
+                ", memberInfo=" + memberInfo +
+                ", memberRole=" + memberRole +
+                '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, password, email, memberInfo, authProvider, memberRole);
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return Objects.equals(id, member.id) && Objects.equals(password, member.password) && Objects.equals(email, member.email) && Objects.equals(memberInfo, member.memberInfo) && authProvider == member.authProvider && Objects.equals(memberRole, member.memberRole);
     }
 }
