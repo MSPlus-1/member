@@ -1,11 +1,13 @@
 package com.part3.msplus.member.command.domain.entity;
 
 import com.part3.msplus.global.model.BaseTimeEntity;
+import com.part3.msplus.member.controller.dto.request.UpdateMemberDTO;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(name = "member")
@@ -32,7 +34,7 @@ public class Member extends BaseTimeEntity {
     /**
      * eager loading, not null relationship
      */
-    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "member_role_id", referencedColumnName = "id")
     private MemberRole memberRole;
 
@@ -53,5 +55,17 @@ public class Member extends BaseTimeEntity {
                 ", memberInfo=" + memberInfo +
                 ", memberRole=" + memberRole +
                 '}';
+    }
+
+    public void update(UpdateMemberDTO updateMemberDTO) {
+        this.email = Email.from(updateMemberDTO.email());
+        this.password = Password.from(updateMemberDTO.password());
+
+        this.memberInfo = MemberInfo.of(
+            updateMemberDTO.memberId(),
+            updateMemberDTO.name(),
+            updateMemberDTO.nickname(),
+            updateMemberDTO.phone()
+        );
     }
 }

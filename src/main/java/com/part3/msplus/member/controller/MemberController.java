@@ -5,12 +5,15 @@ import com.part3.msplus.global.exception.CustomException;
 import com.part3.msplus.global.exception.dto.Error;
 import com.part3.msplus.member.command.domain.repository.MemberRoleRepository;
 import com.part3.msplus.member.command.domain.service.CreateMemberService;
+import com.part3.msplus.member.command.domain.service.UpdateMemberService;
 import com.part3.msplus.member.controller.dto.request.CreateMemberDTO;
+import com.part3.msplus.member.controller.dto.request.UpdateMemberDTO;
 import com.part3.msplus.member.query.ReadMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -19,9 +22,11 @@ import java.util.Optional;
 public class MemberController {
 
     @Autowired
-    private final ReadMemberService memberReadService;
+    private final ReadMemberService readMemberService;
     @Autowired
     private final CreateMemberService createMemberService;
+    @Autowired
+    private final UpdateMemberService updateMemberService;
     @Autowired
     private final MemberRoleRepository memberRoleRepository;
 
@@ -44,12 +49,17 @@ public class MemberController {
     }
 
     @GetMapping("/members")
-    public Map<String, String> getMembers() {
-        return Map.of("message", "Hello, World!");
+    public List<Member> getMembers() {
+        return readMemberService.findAll();
     }
 
     @GetMapping("/members/{id}")
     public Optional<Member> getMember(@PathVariable Long id) {
-        return memberReadService.findById(id);
+        return readMemberService.findById(id);
+    }
+
+    @PatchMapping("/members/{id}")
+    public Member updateMember(@PathVariable Long id, @RequestBody UpdateMemberDTO updateMemberDTO) {
+        return updateMemberService.updateMember(id, updateMemberDTO);
     }
 }

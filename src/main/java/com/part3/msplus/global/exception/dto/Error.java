@@ -18,8 +18,11 @@ public enum Error {
     MISMATCH_PASSWORD(20001, "Mismatch password"),
     INVALID_STATE_VALUE(20002, "Invalid state value"),
 
-    // server : 30,000
-    INTERNAL_SERVER_ERROR(30000, "Internal server error"),
+    // member : 30,000
+    NOT_FOUND_MEMBER(30000, "Not found member"),
+
+    // server : 40,000
+    INTERNAL_SERVER_ERROR(40000, "Internal server error"),
     ;
 
     private final int code;
