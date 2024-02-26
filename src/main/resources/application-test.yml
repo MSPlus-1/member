@@ -1,0 +1,15 @@
+spring:
+  config:
+    import:
+      - classpath:application-dev.yml
+oauth2:
+  config:
+    google:
+      authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+      access-token-uri: https://oauth2.googleapis.com/token
+      client-id: clientId
+      secret-id: secretId
+      response-type: code
+      grant-type: authorization_code
+      redirectUri: http://localhost:${server.port}/api/v1/oauth2/callback/google
+      scope: email%20profile
