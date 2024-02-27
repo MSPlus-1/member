@@ -5,6 +5,7 @@ import com.part3.msplus.ControllerTestSupport;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
@@ -17,10 +18,10 @@ class Oauth2ControllerTest extends ControllerTestSupport {
     void getToken() throws Exception {
         // given
         String jwt = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE3MDg5MjkzODEsImV4cCI6MTcwODkzMTE4MX0.AXILNLbDVwFnCVHBxqRIizFzienawkyEZnqtYil-oL0";
-        when(oauth2Service.getAuthProviderIdToken(any(), anyString(), anyString()))
-                .thenReturn(jwt);
-        when(idTokenFacade.makeApplicationIdTokenBy(jwt, AuthProvider.GOOGLE))
-                .thenReturn(jwt);
+        given(oauth2Service.getAuthProviderIdToken(any(), anyString(), anyString()))
+                .willReturn(jwt);
+        given(idTokenFacade.makeApplicationIdTokenBy(jwt, AuthProvider.GOOGLE))
+                .willReturn(jwt);
 
         // when
         // then

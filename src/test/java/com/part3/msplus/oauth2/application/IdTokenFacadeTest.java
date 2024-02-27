@@ -22,7 +22,7 @@ class IdTokenFacadeTest extends IntegrationTestSupport {
     private IdTokenFacade idTokenFacade;
 
     @Test
-    @DisplayName("인증서버로 부터 받은 id token으로 member 사비스의 토큰을 만든다.")
+    @DisplayName("인증서버로 부터 받은 id token으로 member 서비스의 토큰을 만든다.")
     void makeApplicationIdToken() {
         // given
         String idToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE3MDg5MjkzODEsImV4cCI6MTcwODkzMTE4MX0.AXILNLbDVwFnCVHBxqRIizFzienawkyEZnqtYil-oL0";
