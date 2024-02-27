@@ -36,9 +36,8 @@ public class idTokenClient implements Oauth2Client {
 
     private final JSONParser jsonParser = new JSONParser();
 
-    public String getAuthorizationUri(Oauth2Property oauth2Property) {
-        State savedState = stateRepository.save(State.generate());
-        String state = savedState.getId().toString();
+    public String getAuthorizationUri(Oauth2Property oauth2Property, State state) {
+        State savedState = stateRepository.save(state);
 
         UriComponents uriComponents = UriComponentsBuilder
                 .fromHttpUrl(oauth2Property.getAuthorizationUri())
@@ -46,7 +45,7 @@ public class idTokenClient implements Oauth2Client {
                 .queryParam("response_type", oauth2Property.getResponseType())
                 .queryParam("redirect_uri", oauth2Property.getRedirectUri())
                 .queryParam("scope", oauth2Property.getScope())
-                .queryParam("state", state)
+                .queryParam("state", savedState.getId().toString())
                 .build(true);
 
         return uriComponents.toUriString();

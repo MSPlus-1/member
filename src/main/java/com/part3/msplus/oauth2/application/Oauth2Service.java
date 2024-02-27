@@ -1,10 +1,10 @@
 package com.part3.msplus.oauth2.application;
 
-import com.part3.msplus.global.exception.dto.Error;
 import com.part3.msplus.member.command.domain.entity.AuthProvider;
 import com.part3.msplus.oauth2.command.domain.Oauth2Client;
 import com.part3.msplus.oauth2.command.domain.Oauth2Property;
 import com.part3.msplus.oauth2.command.domain.Oauth2PropertyFactory;
+import com.part3.msplus.oauth2.command.domain.State;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +23,9 @@ public class Oauth2Service {
      */
     public String getAuthorizationUri(AuthProvider authProvider) {
         Oauth2Property oauth2Property = getOauth2Property(authProvider);
+        State state = State.generate();
 
-        return oauth2Client.getAuthorizationUri(oauth2Property);
+        return oauth2Client.getAuthorizationUri(oauth2Property, state);
     }
 
     /**
